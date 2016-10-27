@@ -6,6 +6,7 @@ using System.IO;
 using ExcelLibrary.SpreadSheet;
 using System.Drawing.Printing;
 using System.Drawing;
+using System.Collections;
 
 namespace WindowsFormsApplication3
 {
@@ -395,6 +396,7 @@ namespace WindowsFormsApplication3
                 +"\n Developer: Sean Chen \n Special Thanks: Shawn Chao \n All Rights Reserved ");
         }
 
+
         private void btn_Print_Click(object sender, EventArgs e)
         {
             try {
@@ -408,31 +410,52 @@ namespace WindowsFormsApplication3
             }
         }
 
+
+
+        ArrayList records = new ArrayList();
+
         // print slip
         public void PrintPage(object sender, PrintPageEventArgs e)
         {
-            string content = (" \n\t\t\tTARDY SLIP "
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            string header =
+                " \n\t\t\tTARDY SLIP "
                 + "\n _____________________________________________________________"
-                + "\n Name:\t\t " + txt_fName.Text + "  " + txt_lName.Text + " "
-                + "\n Date:\t\t " + Deduct_date.Text + " \t Time In: " + TimeIn_hh.Text+ ":"+ TimeIn_mm.Text+" "+Am_Pm.Text+" "
-                + "\n Department:\t " + txt_dept.Text + " "
-                + "\n _____________________________________________________________ "
-                + "\n Deduction date:\t\t\t " + Proc_date.Text + " "                
-                + "\n Reason:\t\t\t " + Reason.Text + "  "
-                + "\n Number of Points Deducted:\t " + Ded_point.Text + " "
-                + "\n Remaining Points for the Quarter:\t " + nm_Point.Text + " "
-                + "\n Employee Signature:\t\t X_____________________"
-                + "\n _____________________________________________________________ "
-                );
+                + "\n Name:\t\t" + txt_fName.Text + "  " + txt_lName.Text + " "
+                + "\n Department:\t" + txt_dept.Text + " "
+                + "\n Processing date:\t" + Proc_date.Text + " "
+                + "\n Remaining Points: " + nm_Point.Text + " "
+                + "\n _____________________________________________________________ ";
+
+            sb.Append(header);
 
 
-            e.Graphics.DrawString( content, new Font("Arial", 14, FontStyle.Regular), Brushes.Black, new Point (10, 10));
+            for (int i = 0; i <= records.Count - 1; i++)
+            {
+                sb.Append(records[i].ToString());
+            }
+            
+            e.Graphics.DrawString( sb.ToString() , new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point (10, 10));
+
+            //records.Clear();
         }
 
-      
-
+        //add to print Q        
         
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            records.Add("\n Deducted Date:\t\t" + Deduct_date.Text + "\tTime In: " + TimeIn_hh.Text + ":" + TimeIn_mm.Text + " " + Am_Pm.Text + " "
+                + "\n Reason:\t" + Reason.Text + " "
+                + "\n Deducted Points: " + Ded_point.Text + " \n"
+                //+ "\n _____________________________________________________________ "
+                );
+        }
+
+
         // hotkey
+        // Ctrl + p = prints
         private void Form2_KeyDown(object sender, KeyEventArgs e)
         {
             try
@@ -459,5 +482,7 @@ namespace WindowsFormsApplication3
                 MessageBox.Show("Error  " + ex);
             }
         }
+
+        
     }
 }
