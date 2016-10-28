@@ -410,8 +410,6 @@ namespace WindowsFormsApplication3
             }
         }
 
-
-
         ArrayList records = new ArrayList();
 
         // print slip
@@ -446,7 +444,7 @@ namespace WindowsFormsApplication3
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            records.Add("\n Deducted Date:\t\t" + Deduct_date.Text + "\tTime In: " + TimeIn_hh.Text + ":" + TimeIn_mm.Text + " " + Am_Pm.Text + " "
+            records.Add("\n Deducted Date:\t" + Deduct_date.Text + "\tTime In: " + TimeIn_hh.Text + ":" + TimeIn_mm.Text + " " + Am_Pm.Text + " "
                 + "\n Reason:\t" + Reason.Text + " "
                 + "\n Deducted Points: " + Ded_point.Text + " \n"
                 //+ "\n _____________________________________________________________ "
