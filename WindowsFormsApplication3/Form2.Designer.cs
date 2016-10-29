@@ -270,9 +270,9 @@
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(107, 411);
+            this.dataGridView1.Location = new System.Drawing.Point(58, 409);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(667, 208);
+            this.dataGridView1.Size = new System.Drawing.Size(753, 208);
             this.dataGridView1.TabIndex = 24;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -722,7 +722,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(30, 411);
+            this.button1.Location = new System.Drawing.Point(2, 409);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(50, 33);
             this.button1.TabIndex = 43;

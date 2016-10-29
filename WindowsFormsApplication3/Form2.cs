@@ -22,7 +22,6 @@ namespace WindowsFormsApplication3
             string fileName = "DB2.accdb";
             string fullPath;
             fullPath = Path.GetFullPath(fileName);
-            //MessageBox.Show( fullPath );
             connection.ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + fullPath + "; "
                 +" Persist Security Info = False;";            
             label8.Text = "Hi  " + userName + " welcome!! ";
@@ -76,7 +75,6 @@ namespace WindowsFormsApplication3
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
                 string query = " delete from EmployeeData where EID =  " + txt_eid.Text + " ";
-                //MessageBox.Show(query);
                 command.CommandText = query;
                 command.ExecuteNonQuery();
                 MessageBox.Show("Data deleted");                
@@ -88,11 +86,13 @@ namespace WindowsFormsApplication3
             }
         }
 
+        /*
+        * list first name to the select-employee textbox 
+        */
         private void Form2_Load(object sender, EventArgs e)
         {
             try
             {
-                // ------------- list first name to the select-employee textbox -------------
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;                
@@ -114,11 +114,13 @@ namespace WindowsFormsApplication3
             }
         }
 
+        /*
+        * select employee to display corresponding record in each textBox 
+        */
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                // ----------------- select employee to display corresponding record in each textBox --------------------
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -142,22 +144,22 @@ namespace WindowsFormsApplication3
             }
         }
 
-        
 
-        private void AutoCompleteText() // firstname search
+        /*
+        * firstname search
+        */
+        private void AutoCompleteText() 
         {
             fname_select.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             fname_select.AutoCompleteSource = AutoCompleteSource.CustomSource;
             AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
 
-            // --------------- read in the tabel -------------------
-
+            //read in the tabel
             string fileName = "DB2.accdb";
             string fullPath;
             fullPath = Path.GetFullPath(fileName);
             connection.ConnectionString = @"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + fullPath + "; "
                 + " Persist Security Info = False;";
-
             connection.Open();
             OleDbCommand command2 = new OleDbCommand();
             command2.Connection = connection;
@@ -166,19 +168,20 @@ namespace WindowsFormsApplication3
             OleDbDataReader reader2 = command2.ExecuteReader();
             while (reader2.Read())
             {
-                string sName = reader2.GetString(1);   //firstname column
+                string sName = reader2.GetString(1);   //first name column
                 collection.Add(sName);
             }
-            //--------------------------------------------------------------
             fname_select.AutoCompleteCustomSource = collection;
             connection.Close();
-        }        
-
+        }
+        
+        /*
+        * add deduction record
+        */
         private void btn_addRecord_Click(object sender, EventArgs e)
         {
             try
-            {                
-                // ------------ add deduction record ---------------------
+            {                   
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -205,12 +208,14 @@ namespace WindowsFormsApplication3
                 MessageBox.Show("Error  " + ex);
             }
         }
-        
+
+        /*
+        * update corresponding record in the dataGridView 
+        */
         private void update_datagridview()
         {
             try
             {
-                // ----------------- update corresponding record in the dataGridView --------------------                
                 OleDbCommand command3 = new OleDbCommand();
                 command3.Connection = connection;
                 string query3 = "select RID, DeductDate, TimeIn_hh, TimeIn_mm, TimeIn_ampm, DeductPoint, Reason, Processing_date from DeductData where EID = " + txt_eid.Text + " ";
@@ -228,18 +233,23 @@ namespace WindowsFormsApplication3
             }
         }
 
-        // Quit program gracefully 
+        /*
+         * Quit program
+         */
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }
         
-        // display deduction data on the GridView Box
+        /* 
+        * display data on the GridView 
+        */
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex>=0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                
                 txt_rid.Text = row.Cells[0].Value.ToString();
                 Deduct_date.Text = row.Cells[1].Value.ToString();
                 TimeIn_hh.Text = row.Cells[2].Value.ToString();
@@ -257,14 +267,12 @@ namespace WindowsFormsApplication3
         private void btn_del_rec_Click(object sender, EventArgs e)
         {
             try
-            {                
-                
+            {   
                 // ------------ add the deduction point back ---------------------                 
                 connection.Open();
                 OleDbCommand command2 = new OleDbCommand();
                 command2.Connection = connection;
-                string query2 = "select DeductPoint from DeductData where RID = " + txt_rid.Text + " ";                
-                //MessageBox.Show(query2);
+                string query2 = "select DeductPoint from DeductData where RID = " + txt_rid.Text + " ";  
                 command2.CommandText = query2;
                 OleDbDataReader reader = command2.ExecuteReader();
                 //if (reader.HasRows == true)
@@ -273,7 +281,6 @@ namespace WindowsFormsApplication3
                     {                                                
                         double Pt = double.Parse(nm_Point.Text);
                         double De_pt = double.Parse(reader["DeductPoint"].ToString());
-                        //MessageBox.Show(De_pt.ToString());                        
                         Pt = Pt + De_pt;
                         OleDbCommand command3 = new OleDbCommand();
                         command3.Connection = connection;
@@ -281,7 +288,6 @@ namespace WindowsFormsApplication3
                         command3.CommandText = query3;
                         command3.ExecuteNonQuery();
                     }
-                //}                
                 
                 connection.Close();
                 update_remaining_point();
@@ -294,7 +300,6 @@ namespace WindowsFormsApplication3
                 string query = " delete from DeductData where RID =  " + txt_rid.Text + " ";
                 command.CommandText = query;
                 command.ExecuteNonQuery();
-                //MessageBox.Show("Record deleted");
                 update_datagridview();
                 connection.Close();
 
@@ -329,28 +334,23 @@ namespace WindowsFormsApplication3
         
         /*
          * Name: Edit Record button
-         * 
          */
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                // ------------ retrive deduct point from access ---------------------                 
+                // ------------ retrive deduct point from MS Access ---------------------                 
                 connection.Open();
                 OleDbCommand command2 = new OleDbCommand();
                 command2.Connection = connection;
                 string query2 = "select DeductPoint from DeductData where RID = " + txt_rid.Text + " ";
-                //MessageBox.Show(query2);
                 command2.CommandText = query2;
                 OleDbDataReader reader = command2.ExecuteReader();
-                //if (reader.HasRows == true)
-                //{
                 while (reader.Read())
                 {
                     double Pt = double.Parse(nm_Point.Text);
                     double De_pt = double.Parse(reader["DeductPoint"].ToString());
-                    double new_de_pt = double.Parse(Ded_point.Text);
-                    //MessageBox.Show(De_pt.ToString());                        
+                    double new_de_pt = double.Parse(Ded_point.Text);          
                     Pt = Pt + De_pt - new_de_pt;
                     OleDbCommand command3 = new OleDbCommand();
                     command3.Connection = connection;
@@ -358,8 +358,6 @@ namespace WindowsFormsApplication3
                     command3.CommandText = query3;
                     command3.ExecuteNonQuery();
                 }
-                //}                
-
                 connection.Close();
                 update_remaining_point();
                 update_datagridview();
@@ -373,7 +371,6 @@ namespace WindowsFormsApplication3
                     + " Reason = '" + Reason.Text + "'  where RID = " + txt_rid.Text + " ";
                 command.CommandText = query;
                 command.ExecuteNonQuery();
-                //MessageBox.Show("Data saved !!");
                 update_datagridview();
                 connection.Close();
                 
@@ -389,14 +386,18 @@ namespace WindowsFormsApplication3
             this.Close();
         }
 
-        // Software Version
+        /*
+        * about version
+        */
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(" Employee Management System 2016 \n Version: 1.0.1 "
                 +"\n Developer: Sean Chen \n Special Thanks: Shawn Chao \n All Rights Reserved ");
         }
 
-
+        /*
+        * Print
+        */
         private void btn_Print_Click(object sender, EventArgs e)
         {
             try {
@@ -409,14 +410,14 @@ namespace WindowsFormsApplication3
                 MessageBox.Show("Error  " + ex);
             }
         }
-
-        ArrayList records = new ArrayList();
-
-        // print slip
+        
+        /*
+        * print slip
+        */
+        ArrayList print_queue = new ArrayList();
         public void PrintPage(object sender, PrintPageEventArgs e)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
             string header =
                 " \n\t\t\tTARDY SLIP "
                 + "\n _____________________________________________________________"
@@ -427,33 +428,30 @@ namespace WindowsFormsApplication3
                 + "\n _____________________________________________________________ ";
 
             sb.Append(header);
-
-
-            for (int i = 0; i <= records.Count - 1; i++)
+            for (int i = 0; i <= print_queue.Count - 1; i++)
             {
-                sb.Append(records[i].ToString());
-            }
-            
+                sb.Append(print_queue[i].ToString());
+            }            
             e.Graphics.DrawString( sb.ToString() , new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point (10, 10));
-
-            //records.Clear();
+            print_queue.Clear();    //dump queue after printing
         }
 
-        //add to print Q        
         
-
+        /*
+        * add records to print Q
+        */
         private void button1_Click_1(object sender, EventArgs e)
         {
-            records.Add("\n Deducted Date:\t" + Deduct_date.Text + "\tTime In: " + TimeIn_hh.Text + ":" + TimeIn_mm.Text + " " + Am_Pm.Text + " "
+            print_queue.Add("\n Deducted Date:\t" + Deduct_date.Text + "\tTime In: " + TimeIn_hh.Text + ":" + TimeIn_mm.Text + " " + Am_Pm.Text + " "
                 + "\n Reason:\t" + Reason.Text + " "
                 + "\n Deducted Points: " + Ded_point.Text + " \n"
-                //+ "\n _____________________________________________________________ "
                 );
         }
 
-
-        // hotkey
-        // Ctrl + p = prints
+        /*
+        * Name: hotkey
+        * Ctrl + p = prints
+        */
         private void Form2_KeyDown(object sender, KeyEventArgs e)
         {
             try
@@ -480,7 +478,5 @@ namespace WindowsFormsApplication3
                 MessageBox.Show("Error  " + ex);
             }
         }
-
-        
     }
 }
