@@ -127,3 +127,6 @@ C:\Users\seanc\Dropbox\Sean's NB's\Employee System v1.1.2 Beta\WindowsFormsAppli
 C:\Users\seanc\Dropbox\Sean's NB's\Employee System v1.1.2 Beta\WindowsFormsApplication3\obj\Debug\WindowsFormsApplication3.Form2.resources
 C:\Users\seanc\Dropbox\Sean's NB's\Employee System v1.1.2 Beta\WindowsFormsApplication3\obj\Debug\WindowsFormsApplication3.Properties.Resources.resources
 C:\Users\seanc\Dropbox\Sean's NB's\Employee System v1.1.2 Beta\WindowsFormsApplication3\obj\Debug\WindowsFormsApplication3.csproj.GenerateResource.Cache
+C:\Users\GeorgeT\Dropbox\Sean's NB's\Employee System v1.1.2 Beta\WindowsFormsApplication3\bin\Debug\WindowsFormsApplication3.exe.config
+C:\Users\GeorgeT\Dropbox\Sean's NB's\Employee System v1.1.2 Beta\WindowsFormsApplication3\obj\Debug\WindowsFormsApplication3.exe
+C:\Users\GeorgeT\Dropbox\Sean's NB's\Employee System v1.1.2 Beta\WindowsFormsApplication3\obj\Debug\WindowsFormsApplication3.pdb

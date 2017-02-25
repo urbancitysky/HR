@@ -55,9 +55,9 @@ namespace WindowsFormsApplication3
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;                                
                 string query = "update EmployeeData set FirstName = '" + txt_fName.Text + "' , LastName  = '" +txt_lName.Text+ "' "
-                    + ", Point = '" +nm_Point.Text + "', Dept= '" + txt_dept.Text + "'  where EID = " + txt_eid.Text + " ";                            
+                    + ", Point = '" +nm_Point.Text + "', Dept= '" + txt_dept.Text + "'  where EID = " + txt_eid.Text + " ";  
                 command.CommandText = query ;
-                command.ExecuteNonQuery();                         
+                command.ExecuteNonQuery();
                 MessageBox.Show("Data saved !!");
                 connection.Close();
             }
@@ -248,8 +248,7 @@ namespace WindowsFormsApplication3
         {
             if (e.RowIndex>=0)
             {
-                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];                
                 txt_rid.Text = row.Cells[0].Value.ToString();
                 Deduct_date.Text = row.Cells[1].Value.ToString();
                 TimeIn_hh.Text = row.Cells[2].Value.ToString();
@@ -373,7 +372,6 @@ namespace WindowsFormsApplication3
                 command.ExecuteNonQuery();
                 update_datagridview();
                 connection.Close();
-                
                 update_remaining_point();
             }
             catch (Exception ex)
